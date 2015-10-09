@@ -1,0 +1,1 @@
+echo "<p>You have not added any widgets - click the Add Widgets button to make it easier for your group members to find things of interest</p>";
