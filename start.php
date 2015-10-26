@@ -33,9 +33,6 @@ function au_landing_init() {
 	// change the page menu
 	elgg_register_plugin_hook_handler('register', 'menu:page', 'au_landing_pagemenu', 1000);
 
-	//remind group owners to add widgets
-	elgg_register_plugin_hook_handler('view', 'groups/profile/widgets', 'widget_reminder', 1000);
-
 
 
 	// add in missing group forum topics widget

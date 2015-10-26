@@ -10,4 +10,4 @@ $options = array(
     )
 );
 
-echo elgg_view('input/dropdown', $options) . '<br><br>';
+echo elgg_view('input/select', $options) . '<br><br>';

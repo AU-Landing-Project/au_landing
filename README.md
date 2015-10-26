@@ -11,14 +11,6 @@ Record of changes:
 		* /languages/en.php
 
 		
-- reregisters thewire widget for index context
-- adds 'add to the wire' link to wire widget
-
-		* overwrites wire content view at views/default/widgets/thewire/content.php (uses search context)
-
-		* widget re-registered in init of start.php
-
-		
 - restores group acls as access options
 
 		* registered plugin hook in init of start.php
@@ -30,7 +22,7 @@ Record of changes:
 
 		* registered plugin hook in global scope of start.php
 
-		* handler in /lib/deprecation log
+		* handler in /lib/hooks.php
 
 		* toggle /views/default/plugin/au_landing/settings.php
 
@@ -44,54 +36,17 @@ Record of changes:
 
 		* 'route' hook registered in init of start.php
 
-		* handler in /lib/remove_online_users_tab.php
+		* handler in /lib/hooks.php
 
 		
-- Adds in missing widget 'group_forum_topics' previously found in widget manager, custom index groups widget
+- Modifies css with messages count style
 
-		* widgets registered in init of start.php
-
-		* widget views in /views/default/widgets/group_forum_topics and /views/default/widgets/index_groups
-
-		
-- Modifies html_widget to give rich text editor (views/default/widgets/free_html/edit.php)
-
-		* views/default/widgets/free_html/edit.php
-		
-		
-- Modifies css to allow editor to extend outside of narrow widgets
-
-		* views/default/au_landing/css.php
-		
-		
-- extends widget edit view (prepending) to let users know to refresh the page if tinymce doesn't work after moving a widget
-
-		* views/default/au_landing/textwidgets.php
+		* views/default/css/au_landing.php
 
 		
 - Changes group custom layout background image to just inside the group instead of whole page
 
 		* overwrites views/default/group_custom_layout/group/css.php
-
-		
-- Makes individual_poll widget work in groups
-
-		* overwrites views/default/widgets/poll_individual/content.php
-
-//restored by jon		
-- removes the "house" link from widget manager tabbed dashboard due to broken design
-
-		* unregistered in init of start.php
-
-		
-// https://github.com/Elgg/Elgg/pull/326
-// note this was never pulled in due to plans to change to CKeditor
-- Makes tinymce work for ajax loaded textareas
-- updates tinymce libraries
-
-		* overwrites views/default/tinymce/init.php
-
-		* overwrites views/default/js/tinymce.php
 
 		
 - appends link to notification settings to all notifications
@@ -103,9 +58,9 @@ Record of changes:
 
 - sends notification to users when entities they own are edited by someone else
 
-		* 'update' event registered in global scope of start.php
+		* 'update' event registered in init of start.php
 
-		* handler au_landing_page_update in /lib/functions.php
+		* handler au_landing_page_update in /lib/events.php
 		
 //replaced by Jon - widget manager version still causes major server crisis
 - removes 'and' option of content_by_tag widget (from Widget Manager)
@@ -119,7 +74,7 @@ Record of changes:
 
 		* 'menu:owner_block' hook called in init of start.php
 
-		* handler in /lib/functions.php
+		* handler in /lib/hooks.php
 		
 
 - adds 'mine' option to dashboard river widget
@@ -145,14 +100,14 @@ Record of changes:
 
 		* hook registered in init of start.php
 
-		* handler in /lib/functions.php
+		* handler in /lib/hooks.php
 
 
 - alerts users on login if they have an invalid email address on the system
 
-		* login event registerd in global scope of start.php
+		* login event registered in init of start.php
 
-		* handler in /lib/functions.php
+		* handler in /lib/events.php
 
 
 - adds help text for change-email form
@@ -172,4 +127,6 @@ Record of changes:
 - adds messages count to any menu item that contains a span with the class au-messages
 
 		* views/default/au_landing/messages_count.php
+
+                * views/default/js/au_landing/messages_count.js
 		
