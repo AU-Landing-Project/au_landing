@@ -11,5 +11,5 @@ if (!$num_messages) {
   return true;
 }
 
-$text = "<span class=\"au-messages-new\" data-count=\"{$num_messages}\" class=\"hidden\">$num_messages</span>";
+echo "<span class=\"au-messages-new hidden\" data-count=\"{$num_messages}\">$num_messages</span>";
 elgg_require_js('au_landing/messages_count');

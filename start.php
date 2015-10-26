@@ -3,9 +3,6 @@
 require_once __DIR__ . '/lib/hooks.php';
 require_once __DIR__ . '/lib/functions.php';
 
-include 'lib/remove_online_users_tab.php';
-include 'lib/notification_subscription_settings_info.php';
-
 
 // prevent deprecation notices from getting logged
 // note this has to be in the global scope so it can pick up on 'init' deprecations
@@ -17,6 +14,7 @@ elgg_register_event_handler('init', 'system', 'au_landing_init');
 function au_landing_init() {
 	elgg_extend_view('css/elgg', 'css/au_landing');
 	elgg_extend_view('page/elements/footer', 'au_landing/messages_count');
+	elgg_extend_view('groups/edit', 'au_landing/gcl');
 
 
 	// fix title link in event_calendar widget
@@ -27,6 +25,7 @@ function au_landing_init() {
 	elgg_register_plugin_hook_handler('access:collections:write', 'all', 'au_landing_group_acls', 1000);
 
 	// prevent users from seeing online users
+	elgg_register_plugin_hook_handler('members:config', 'tabs', 'au_landing_remove_online_tab', 1000);
 	elgg_register_plugin_hook_handler('route', 'members', 'au_landing_remove_online_users', 1000);
 
 
@@ -43,9 +42,6 @@ function au_landing_init() {
 	// @todo
 	register_notification_handler('email', 'au_landing_email_notify');
 	register_notification_handler('site', 'au_landing_site_notify');
-
-	// remove group side links that don't work due to poor group_gatekeeper implementation
-	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'au_landing_ownerblock_links', 9999);
 
 	// modify some routing
 	elgg_register_plugin_hook_handler('route', 'all', 'au_landing_router');

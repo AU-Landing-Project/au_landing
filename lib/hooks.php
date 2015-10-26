@@ -19,14 +19,16 @@ function au_landing_group_acls($hook, $type, $returnvalue, $params) {
 	// get groups and add their acls to the options
 	// only for personal content, eg. don't list all groups inside a group context
 	if ($user && $type == 'user') {
-		$groups = $user->getGroups('', 0, 0);
+		
+		// scalability?
+		$groups = $user->getGroups(array('limit' => false));
 
 		if ($groups) {
 			foreach ($groups as $group) {
 
 				// only show top level groups if we're using subgroups
 				if (elgg_is_active_plugin('au_subgroups')) {
-					$parent = au_subgroups_get_parent_group($group);
+					$parent = \AU\SubGroups\get_parent_group($group);
 					if ($parent) {
 						continue;
 					}
@@ -67,15 +69,6 @@ function au_landing_remove_online_users($hook, $type, $returnvalue, $params) {
 	if ($returnvalue['segments'][0] == 'online') {
 		forward('members');
 	}
-}
-
-// remove group side links if not part of the group
-function au_landing_ownerblock_links($hook, $type, $return, $params) {
-
-	if (!elgg_group_gatekeeper(false)) {
-		return array();
-	}
-	return $return;
 }
 
 // handle some rerouting
@@ -142,14 +135,26 @@ function au_landing_title_menu($hook, $type, $return, $params) {
 
 // this removes the 'edit group appearance' button from the side bar (it is available in group edit page)
 function au_landing_pagemenu($hook, $type, $return, $params) {
-	if (in_array(elgg_get_context(), array('group_profile', 'groups')) && is_array($return) && count($return)) {
-		foreach ($return as $key => $item) {
-			if (in_array($item->getName(), array('mail', 'Edit Group Appearance'))) {
-				unset($return[$key]);
-			}
-		}
+	if (!$return) {
 		return $return;
 	}
+	
+	if (!is_array($return)) {
+		return $return;
+	}
+	
+	if (!in_array(elgg_get_context(), array('group_profile', 'groups'))) {
+		return $return;
+	}
+	
+	foreach ($return as $key => $item) {
+		if (in_array($item->getName(), array('mail', 'group_layout'))) {
+			unset($return[$key]);
+		}
+	}
+	
+	return $return;
+	
 }
 
 //plugin hooks
@@ -198,4 +203,14 @@ function widget_reminder($hook, $type, $return, $params) {
 			}
 		}
 	}
+}
+
+
+// remove the online tab from members filter
+function au_landing_remove_online_tab($hook, $type, $return, $params) {
+	if (isset($return['online'])) {
+		unset($return['online']);
+	}
+	
+	return $return;
 }

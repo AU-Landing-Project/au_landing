@@ -29,7 +29,9 @@ Record of changes:
 		
 - removes 'online users' tab
 
-		* overwrites view at views/default/members/nav.php
+		* members:config, tabs hook registered in init
+                
+                * handler in /lib/hooks.php
 		
 		
 - prevents routing to online users page
@@ -38,17 +40,13 @@ Record of changes:
 
 		* handler in /lib/hooks.php
 
-		
-- Modifies css with messages count style
-
-		* views/default/css/au_landing.php
 
 		
 - Changes group custom layout background image to just inside the group instead of whole page
 
 		* overwrites views/default/group_custom_layout/group/css.php
 
-		
+//@todo
 - appends link to notification settings to all notifications
 
 		* hooked in init of start.php
@@ -68,13 +66,6 @@ Record of changes:
 		* overwrites views/default/widgets/content_by_tag/content.php
 
 		* overwrites views/default/widgets/content_by_tag/edit.php
-		
-
-- removed links to group content when unavailable (not a member of a closed group)
-
-		* 'menu:owner_block' hook called in init of start.php
-
-		* handler in /lib/hooks.php
 		
 
 - adds 'mine' option to dashboard river widget
@@ -121,7 +112,14 @@ Record of changes:
 
 		* page menu hooked in init of start.php
 
-		* handler au_landing_pagemenu in /lib/functions.php
+		* handler au_landing_pagemenu in /lib/hooks.php
+
+
+- GCL form added to group_tools other options page
+
+                * view extended in init
+
+                * view extension views/default/au_landing/gcl.php
 
 		
 - adds messages count to any menu item that contains a span with the class au-messages
@@ -129,4 +127,6 @@ Record of changes:
 		* views/default/au_landing/messages_count.php
 
                 * views/default/js/au_landing/messages_count.js
+
+                * views/default/css/au_landing.php
 		
