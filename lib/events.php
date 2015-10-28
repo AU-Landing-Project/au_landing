@@ -28,7 +28,7 @@ function au_landing_page_update($event, $type, $object) {
 	elgg_set_config('page_update_notify_sent_' . $object->guid, true);
 
 	// get revision history for the page
-	$revisions = $object->getAnnotations('page', 0);
+	$revisions = $object->getAnnotations(array('annotation_name' => 'page', 'limit' => false));
 
 	// create an array of unique users to notify, excluding the current user
 	// and the object owner (as core notifies them)

@@ -72,6 +72,6 @@ function au_landing_init() {
 
 
 	// make sure users have email addresses
-	elgg_register_event_handler('login', 'user', 'au_landing_user_login');
+	elgg_register_event_handler('login:after', 'user', 'au_landing_user_login');
 
 }
