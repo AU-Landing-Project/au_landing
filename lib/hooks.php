@@ -214,3 +214,17 @@ function au_landing_remove_online_tab($hook, $type, $return, $params) {
 	
 	return $return;
 }
+
+
+function au_landing_email_append($hook, $type, $return, $params) {
+	// only modify the body if it's going to an existing user
+	$users = get_user_by_email($return['to']);
+	if (!$users) {
+		return $return;
+	}
+	
+	// we have a real user, lets append our standard email footer
+	$return['body'] .= elgg_echo('au_landing:notification:append', array(elgg_get_site_url() . 'settings/user/' . $users[0]->username), $users[0]->language);
+	
+	return $return;
+}

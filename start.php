@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/lib/hooks.php';
+require_once __DIR__ . '/lib/events.php';
 require_once __DIR__ . '/lib/functions.php';
 
 
@@ -39,10 +40,8 @@ function au_landing_init() {
 
 
 	// new notification handlers to append subscription modification info
-	// @todo
-	register_notification_handler('email', 'au_landing_email_notify');
-	register_notification_handler('site', 'au_landing_site_notify');
-
+	elgg_register_plugin_hook_handler('email', 'system', 'au_landing_email_append', 0);
+	
 	// modify some routing
 	elgg_register_plugin_hook_handler('route', 'all', 'au_landing_router');
 

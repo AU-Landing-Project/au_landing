@@ -46,12 +46,12 @@ Record of changes:
 
 		* overwrites views/default/group_custom_layout/group/css.php
 
-//@todo
+
 - appends link to notification settings to all notifications
 
 		* hooked in init of start.php
 
-		* handler in /lib/notification_subscription_settings_info.php
+                * hook in hooks.php au_landing_email_append
 		
 
 - sends notification to users when entities they own are edited by someone else
